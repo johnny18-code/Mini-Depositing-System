@@ -1,0 +1,22 @@
+{
+  "accounts": [
+    {
+      "name": "johnny",
+      "Balance": 369.0,
+      "Transactions": [
+        { "type": "Creation", "Amount": 123.0, "status": "successful" },
+        { "type": "Deposit", "amount": 123.0, "status": "successful" },
+        { "type": "Deposit", "amount": 123.0, "status": "successful" }
+      ]
+    },
+    {
+      "name": "berting",
+      "Balance": 658.0,
+      "Transactions": [
+        { "type": "Creation", "Amount": 323.0, "status": "successful" },
+        { "type": "Deposit", "amount": 323.0, "status": "successful" },
+        { "type": "Deposit", "amount": 12.0, "status": "successful" }
+      ]
+    }
+  ]
+}
