@@ -5,3 +5,5 @@ JSON File: Read - Re-write
 - Deposit
 - Withdraw
 - Show Summary
+
+- Things can be simplified. Still learning Python... as weil as this Git-GitHub.
