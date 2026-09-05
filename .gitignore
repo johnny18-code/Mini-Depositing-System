@@ -1,4 +1,4 @@
-.dist
+dist
 build
 .venv
-_pycache_
+__pycache__
