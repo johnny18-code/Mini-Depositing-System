@@ -6,4 +6,4 @@ JSON File: Read - Re-write
 - Withdraw
 - Show Summary
 
-- Things can be simplified. Still learning Python... as weil as this Git-GitHub.
+- Things can be simplified. Still learning Python as well as this Git-GitHub.
