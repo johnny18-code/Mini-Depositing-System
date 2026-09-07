@@ -17,6 +17,14 @@
         { "type": "Deposit", "amount": 323.0, "status": "successful" },
         { "type": "Deposit", "amount": 12.0, "status": "successful" }
       ]
+    },
+    {
+      "name": "suki",
+      "Balance": 450.0,
+      "Transactions": [
+        { "type": "Creation", "amount": 500.0, "status": "successful" },
+        { "type": "Withdraw", "amount": 50.0, "status": "successful" }
+      ]
     }
   ]
 }

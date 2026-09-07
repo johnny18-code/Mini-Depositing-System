@@ -1,15 +1,15 @@
 # mini depositing system :)
 import json
 from nt import close
+from pydoc import text
 from tkinter import Scrollbar
 import account_exist as accountExistFunc
 import check_deposit as checkDepositFunc
 import create_account as createfunc
-
 import log_deposit as key_checkFunc
 import log_withdraw as key_withDrawClass
 import get_summary as key_summaryFunc
-
+import delete_account as key_delete
 
 import FreeSimpleGUI as cv
 
@@ -26,13 +26,13 @@ action_holder = ""
 # events are those clicks/buttons
 
 # Texts are labels
-user_name_label = cv.Text("Enter account name")
+user_name_label = cv.Text("Account Name:", size=(15, 1))
 user_name_input_box = cv.InputText(
-    tooltip="Enter account name", key="AccountName")
+    tooltip="Enter account name", key="AccountName", size=(30, 1))
 
-user_amount_label = cv.Text("Enter amount")
+user_amount_label = cv.Text("Enter Amount:", size=(15, 1))
 user_amount_input = cv.InputText(
-    tooltip="Amount will be entered", default_text="0", key="Amount")
+    tooltip="Amount will be entered", default_text="0", key="Amount", size=(30, 1))
 
 user_actions_label = cv.Text("Actions: ")
 
@@ -41,24 +41,32 @@ user_button_create_account = cv.Button("Create Account")
 user_button_deposit = cv.Button("Deposit")
 user_button_withdraw = cv.Button("Withdraw")
 user_button_summary = cv.Button("Show Account Summary")
+user_button_delete = cv.Button("Delete Account")
 user_button_close = cv.Button("Close Program")
 
 
 # listbox
 # enable_event=True if you want the item to be the actual event
 user_list_box_label = cv.Text("Account Summary")
+user_account_total_label = cv.Text(
+    "                                             Total Balance")
+
+
 user_list_box = cv.Listbox(
-    ["----"], size=[45, 5], key="AccountSummaryKey")
+    ["--"], size=[40, 5], key="AccountSummaryKey",)
 
 
-window = cv.Window("Mini Banking System", layout=[
+user_list_box_total = cv.Text(text="-----", size=[40, 5], key="TotalKey",)
+
+
+window = cv.Window("Mini Depositing System", layout=[
     [user_name_label, user_name_input_box],
     [user_amount_label, user_amount_input],
-    [user_list_box_label],
-    [user_list_box],
+    [user_list_box_label, user_account_total_label],
+    [user_list_box, user_list_box_total],
     [user_actions_label],
     [user_button_create_account, user_button_deposit,
-        user_button_withdraw, user_button_summary, user_button_close]
+        user_button_withdraw, user_button_summary, user_button_delete, user_button_close]
 ]  # layout end
 )
 
@@ -172,19 +180,58 @@ while action_holder != "Close Program":
                     data["AccountName"])
                 if isAccountExist == "Existing":
                     get_key = key_checkFunc.check_key(data["AccountName"])
-                    returnedArrayValues = key_summaryFunc.get_sum(get_key)
+                    totalBalance, returnedArrayValues = key_summaryFunc.get_summary(
+                        get_key)
 
                     window["AccountSummaryKey"].update(
                         values=returnedArrayValues)
+
+                    window["TotalKey"].update(value=totalBalance)
+
                 else:
                     cv.popup("Account not found for Summary, create new?")
 
+# adding new case for deleting account~
+        case "Delete Account":
+            print("In delete account case")
+            if data["AccountName"] == '':
+                print("Empty field AccountName")
+            else:
+                # check if account exist
+                isAccountExist = accountExistFunc.account_exist(
+                    data["AccountName"])
+                if isAccountExist == "Existing":
+                    # get key
+                    get_key = key_checkFunc.check_key(data["AccountName"])
+                    if get_key != "NF":
+                        # call delete function
+                        print("Deleting account...")
+                        # as you sure you want to delete?
+                        delchoice = cv.popup_ok_cancel(
+                            "Are you sure you want to delete?")
+                        if str(delchoice) == "OK":
+                            key_delete.remove_account(get_key)
+                        else:
+                            print(delchoice)
+                            cv.popup("Okay not deleted")
+
+                    else:
+                        print("Not found key")
+                else:
+                    # else pop-up not exist
+                    cv.popup(
+                        f"This account {data["AccountName"]} does not exist")
+
+#########################################################################################################
+
         case "Close Program":
             print("Closing the programm...")
+#########################################################################################################
         case cv.WIN_CLOSED:
             # X button
             action_holder = "Close Program"
             close_program()
+#########################################################################################################
         case _:
             print("Unknown command...")
 
