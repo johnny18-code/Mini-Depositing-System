@@ -1,4 +1,4 @@
-﻿# Mini-Depositing-System
+﻿# Mini-Depositing-System - Simple GUI
 
 JSON File: Read - Re-write
 - Create,
